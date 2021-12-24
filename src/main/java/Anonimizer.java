@@ -16,6 +16,8 @@ import java.util.concurrent.CompletionStage;
 public class Anonimizer {
 
     public static void main(String[] args) {
+        private static final String HOST = "localhost";
+        
         ActorSystem system = ActorSystem.create("routes");
         ActorRef cachingActor = system.actorOf(Props.create());
         Http http = Http.get(system);
