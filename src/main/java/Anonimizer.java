@@ -19,7 +19,7 @@ public class Anonimizer {
 
 
     public static void main(String[] args) {
-
+        l = Logging.getLogger(system, LOG_SOURCE);
         ActorSystem system = ActorSystem.create("routes");
         ActorRef cachingActor = system.actorOf(Props.create());
         Http http = Http.get(system);
