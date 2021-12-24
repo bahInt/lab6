@@ -2,6 +2,8 @@ import akka.NotUsed;
 import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
 import akka.actor.Props;
+import akka.event.Logging;
+import akka.event.LoggingAdapter;
 import akka.http.javadsl.ConnectHttp;
 import akka.http.javadsl.Http;
 import akka.http.javadsl.ServerBinding;
@@ -16,11 +18,12 @@ import java.util.concurrent.CompletionStage;
 public class Anonimizer {
     private static final String HOST = "localhost";
     private static final int PORT = 8080;
-
+    private static final Object LOG_SOURCE = System.out;
 
     public static void main(String[] args) {
-        l = Logging.getLogger(system, LOG_SOURCE);
+
         ActorSystem system = ActorSystem.create("routes");
+        LoggingAdapter l = Logging.getLogger(system, LOG_SOURCE);
         ActorRef cachingActor = system.actorOf(Props.create());
         Http http = Http.get(system);
         final ActorMaterializer materializer = ActorMaterializer.create(system);
