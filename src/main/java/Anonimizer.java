@@ -48,7 +48,7 @@ public class Anonimizer {
     public static Route createRoute(){}
 
     public static void initZooKeeper() throws IOException {
-        keeper = new ZooKeeper(HOST + ":" + CLIENT_PORT, TIMEOUT, watcher)
+        keeper = new ZooKeeper(HOST + ":" + CLIENT_PORT, TIMEOUT, watcher);
     }
 
     public static Watcher watcher = watchedEvent -> {
