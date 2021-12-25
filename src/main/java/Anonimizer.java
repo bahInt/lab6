@@ -20,6 +20,7 @@ import java.util.concurrent.CompletionStage;
 public class Anonimizer {
     private static final String HOST = "localhost";
     private static final int PORT = 8080;
+    private static final int TIMEOUT = 3000;
     private static final Object LOG_SOURCE = System.out;
     private static ZooKeeper keeper;
 
@@ -44,6 +45,6 @@ public class Anonimizer {
     public static Route createRoute(){}
 
     public static void initZooKeeper() {
-        keeper = new ZooKeeper()
+        keeper = new ZooKeeper(, TIMEOUT)
     }
 }
