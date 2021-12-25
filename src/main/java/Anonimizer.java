@@ -59,7 +59,7 @@ public class Anonimizer {
                         if(Integer.parseInt(count) <= 0) return completeWithFuture(fetch(url));
                         return completeWithFuture(Patterns.ask(configStorageActor, new GetNextServer(), timeout)
                                 .thenApply(nextPort -> (String)nextPort)
-                                .thenCompose(nextPort -> fetch(String.format("http://localhost:%s?url=%s&count=%d", nextPort, url, ))));
+                                .thenCompose(nextPort -> fetch(String.format("http://localhost:%s?url=%s&count=%d", nextPort, url, Integer.parseInt(count) - 1))));
                         }))
         ));
     }
