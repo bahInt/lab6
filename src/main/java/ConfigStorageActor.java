@@ -9,7 +9,7 @@ public class ConfigStorageActor extends AbstractActor {
     @Override
     public Receive createReceive() {
         return ReceiveBuilder.create()
-                .match()
+                .match(Re)
                 .match()
                 .build();
     }
