@@ -51,7 +51,9 @@ public class Anonimizer {
     public static Route createRoute(){
         return route(get(() -> {
             parameter("url", url ->
-                    parameter("count",))
+                    parameter("count", count -> {
+                        if(Integer.parseInt(count) <= 0) return ;
+                    }))
         }));
     }
 
