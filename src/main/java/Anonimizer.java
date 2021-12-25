@@ -57,10 +57,10 @@ public class Anonimizer {
             parameter("url", url ->
                     parameter("count", count -> {
                         if(Integer.parseInt(count) <= 0) return completeWithFuture(fetch(url));
-                    return completeWithFuture(Patterns.ask(configStorageActor, new GetNextServer(), timeout))
-                            .thenApply()
-                            .thenCompose();
-                    }))
+                        return completeWithFuture(Patterns.ask(configStorageActor, new GetNextServer(), timeout))
+                                .thenApply(nextPort -> (String)nextPort)
+                                .thenCompose();
+                        }))
         ));
     }
 
