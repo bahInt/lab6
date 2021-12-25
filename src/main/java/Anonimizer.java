@@ -60,6 +60,7 @@ public class Anonimizer {
                 byte[] port = keeper.getData("servers/" + s, false, null);
                 newServers.add(new String(port));
             }
+            
         } catch (KeeperException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {
