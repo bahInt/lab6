@@ -57,7 +57,8 @@ public class Anonimizer {
 
         try {
             for(String s: keeper.getChildren("/servers", false, null)) {
-
+                byte[] port = keeper.getData();
+                newServers.add(new String(port));
             }
         } catch (KeeperException e) {
             e.printStackTrace();
