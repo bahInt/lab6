@@ -12,6 +12,7 @@ import akka.http.javadsl.model.HttpResponse;
 import akka.http.javadsl.server.Route;
 import akka.stream.ActorMaterializer;
 import akka.stream.javadsl.Flow;
+import org.apache.zookeeper.KeeperException;
 import org.apache.zookeeper.Watcher;
 import org.apache.zookeeper.ZooKeeper;
 
@@ -54,6 +55,14 @@ public class Anonimizer {
     public static Watcher watcher = watchedEvent -> {
         ArrayList<String> newServers = new ArrayList<>();
 
-        for(String s: keeper.getChildren()){}
+        try {
+            for(String s: keeper.getChildren("/servers", false, null)) {
+
+            }
+        } catch (KeeperException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }
