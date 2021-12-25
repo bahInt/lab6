@@ -12,6 +12,7 @@ import akka.http.javadsl.model.HttpResponse;
 import akka.http.javadsl.server.Route;
 import akka.stream.ActorMaterializer;
 import akka.stream.javadsl.Flow;
+import org.apache.zookeeper.ZooKeeper;
 
 import java.io.IOException;
 import java.util.concurrent.CompletionStage;
@@ -20,7 +21,7 @@ public class Anonimizer {
     private static final String HOST = "localhost";
     private static final int PORT = 8080;
     private static final Object LOG_SOURCE = System.out;
-    static
+    private static ZooKeeper keeper;
 
     public static void main(String[] args) throws IOException {
         ActorSystem system = ActorSystem.create("routes");
@@ -43,6 +44,6 @@ public class Anonimizer {
     public static Route createRoute(){}
 
     public static void initZooKeeper() {
-
+        keeper = new ZooKeeper()
     }
 }
