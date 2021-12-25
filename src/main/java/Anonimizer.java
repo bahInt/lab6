@@ -51,12 +51,11 @@ public class Anonimizer {
     }
 
     public static Route createRoute(){
-        return route(get(() -> 
+        return route(get(() ->
             parameter("url", url ->
                     parameter("count", count -> {
                         if(Integer.parseInt(count) <= 0) return completeWithFuture(fetch(url));
-
-                    return completeWithFuture(Patterns.ask())}))
+                    return completeWithFuture(Patterns.ask(configStorageActor, new GetNextServer(), timeout))}))
         ));
     }
 
