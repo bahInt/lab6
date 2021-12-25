@@ -29,6 +29,7 @@ public class Anonimizer {
     private static final Object LOG_SOURCE = System.out;
     private static ZooKeeper keeper;
     private static ActorRef configStorageActor;
+    private static Http http;
     private static LoggingAdapter l;
 
     public static void main(String[] args) throws IOException, InterruptedException, KeeperException {
@@ -36,7 +37,7 @@ public class Anonimizer {
         l = Logging.getLogger(system, LOG_SOURCE);
         configStorageActor = system.actorOf(Props.create(ConfigStorageActor.class));
         initZooKeeper();
-        Http http = Http.get(system);
+        http = Http.get(system);
         final ActorMaterializer materializer = ActorMaterializer.create(system);
         final Flow<HttpRequest, HttpResponse, NotUsed> routeFlow = createRoute().flow(system, materializer);
         final CompletionStage<ServerBinding> binding = http.bindAndHandle(
