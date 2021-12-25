@@ -1,4 +1,5 @@
 import akka.actor.AbstractActor;
+import akka.actor.ActorRef;
 import akka.japi.pf.ReceiveBuilder;
 
 import java.util.ArrayList;
@@ -14,7 +15,7 @@ public class ConfigStorageActor extends AbstractActor {
                     servers = msg.getServers();
                 })
                 .match(GetNextServer.class, msg -> {
-                    getSender().tell(servers.get(ThreadLocalRandom.current().nextInt(0, server));
+                    getSender().tell(servers.get(ThreadLocalRandom.current().nextInt(0, servers.size())), ActorRef.noSender());
                 })
                 .build();
     }
