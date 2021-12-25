@@ -9,8 +9,12 @@ public class ConfigStorageActor extends AbstractActor {
     @Override
     public Receive createReceive() {
         return ReceiveBuilder.create()
-                .match()
-                .match()
+                .match(RefreshServerMessage.class, msg -> {
+                    servers = msg.getServers();
+                })
+                .match(GetNextServer.class, msg -> {
+                    
+                })
                 .build();
     }
 }
