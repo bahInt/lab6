@@ -57,6 +57,7 @@ public class Anonimizer {
         l.info("Creating servers on port {}", PORT);
         keeper.create("/servers/" + PORT, (PORT + "").getBytes());
         WatchedEvent event = new WatchedEvent(Watcher.Event.EventType.NodeCreated, Watcher.Event.KeeperState.SyncConnected, "");
+        watcher.process(event);
     }
 
     public static Watcher watcher = watchedEvent -> {
