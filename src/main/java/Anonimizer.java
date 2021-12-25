@@ -22,7 +22,6 @@ public class Anonimizer {
     private static final Object LOG_SOURCE = System.out;
 
     public static void main(String[] args) throws IOException {
-
         ActorSystem system = ActorSystem.create("routes");
         LoggingAdapter l = Logging.getLogger(system, LOG_SOURCE);
         ActorRef cachingActor = system.actorOf(Props.create());
