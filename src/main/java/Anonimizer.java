@@ -50,7 +50,8 @@ public class Anonimizer {
 
     public static Route createRoute(){
         return route(get(() -> {
-            parameter("url")
+            parameter("url", url ->
+                    parameter("count",))
         }));
     }
 
