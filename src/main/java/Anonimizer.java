@@ -20,11 +20,13 @@ public class Anonimizer {
     private static final String HOST = "localhost";
     private static final int PORT = 8080;
     private static final Object LOG_SOURCE = System.out;
+    static
 
     public static void main(String[] args) throws IOException {
         ActorSystem system = ActorSystem.create("routes");
         LoggingAdapter l = Logging.getLogger(system, LOG_SOURCE);
-        ActorRef cachingActor = system.actorOf(Props.create());
+        ActorRef cachingActor = system.actorOf(Props.create(ConfigStorageActor.class));
+        initZooKeeper();
         Http http = Http.get(system);
         final ActorMaterializer materializer = ActorMaterializer.create(system);
         final Flow<HttpRequest, HttpResponse, NotUsed> routeFlow = createFlow(http, system, materializer, actor);
@@ -38,5 +40,9 @@ public class Anonimizer {
         binding.thenCompose(ServerBinding::unbind).thenAccept(unbound -> system.terminate());
     }
 
-    public static Route route(){}
+    public static Route createRoute(){}
+
+    public static void initZooKeeper() {
+
+    }
 }
