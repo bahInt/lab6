@@ -55,7 +55,7 @@ public class Anonimizer {
             parameter("url", url ->
                     parameter("count", count -> {
                         if(Integer.parseInt(count) <= 0) return completeWithFuture(fetch(url));
-                    return completeWithFuture(Patterns.ask(configStorageActor, new GetNextServer()));
+                    return completeWithFuture(Patterns.ask(configStorageActor, new GetNextServer(), t));
                     }))
         ));
     }
