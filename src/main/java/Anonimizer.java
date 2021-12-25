@@ -16,6 +16,7 @@ import org.apache.zookeeper.Watcher;
 import org.apache.zookeeper.ZooKeeper;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.concurrent.CompletionStage;
 
 public class Anonimizer {
@@ -50,5 +51,8 @@ public class Anonimizer {
         keeper = new ZooKeeper(HOST + ":" + CLIENT_PORT, TIMEOUT, watcher)
     }
 
-    
+    public static Watcher watcher = watchedEvent -> {
+        ArrayList<String> newServers = new ArrayList<>();
+        
+    }
 }
