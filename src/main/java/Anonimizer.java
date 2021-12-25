@@ -31,7 +31,7 @@ public class Anonimizer {
     private static ActorRef configStorageActor;
     private static LoggingAdapter l;
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, InterruptedException, KeeperException {
         ActorSystem system = ActorSystem.create("routes");
         l = Logging.getLogger(system, LOG_SOURCE);
         configStorageActor = system.actorOf(Props.create(ConfigStorageActor.class));
@@ -59,6 +59,9 @@ public class Anonimizer {
         }));
     }
 
+    private static CompletionStage<HttpResponse> fetch(String url) {
+        return http.singleRe
+    }
     public static void initZooKeeper() throws IOException, InterruptedException, KeeperException {
         keeper = new ZooKeeper(HOST + ":" + CLIENT_PORT, TIMEOUT, watcher);
         l.info("Creating servers on port {}", PORT);
