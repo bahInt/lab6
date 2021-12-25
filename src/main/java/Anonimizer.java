@@ -56,7 +56,7 @@ public class Anonimizer {
         keeper = new ZooKeeper(HOST + ":" + CLIENT_PORT, TIMEOUT, watcher);
         l.info("Creating servers on port {}", PORT);
         keeper.create("/servers/" + PORT, (PORT + "").getBytes());
-        WatchedEvent event = new WatchedEvent(Watcher.Event.EventType.NodeCreated, Watcher.Event.KeeperState.SyncConnected);
+        WatchedEvent event = new WatchedEvent(Watcher.Event.EventType.NodeCreated, Watcher.Event.KeeperState.SyncConnected, "");
     }
 
     public static Watcher watcher = watchedEvent -> {
