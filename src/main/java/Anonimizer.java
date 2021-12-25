@@ -50,5 +50,5 @@ public class Anonimizer {
         keeper = new ZooKeeper(HOST + ":" + CLIENT_PORT, TIMEOUT, watcher)
     }
 
-    public static Watcher watcher
+    
 }
