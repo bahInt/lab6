@@ -15,9 +15,10 @@ import akka.stream.javadsl.Flow;
 import org.apache.zookeeper.*;
 
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.concurrent.CompletionStage;
+
+import static akka.http.javadsl.server.Directives.*;
 
 public class Anonimizer {
     private static final String HOST = "localhost";
@@ -47,7 +48,11 @@ public class Anonimizer {
         binding.thenCompose(ServerBinding::unbind).thenAccept(unbound -> system.terminate());
     }
 
-    public static Route createRoute(){}
+    public static Route createRoute(){
+        return route(get(() -> {
+            parameter("url")
+        }));
+    }
 
     public static void initZooKeeper() throws IOException, InterruptedException, KeeperException {
         keeper = new ZooKeeper(HOST + ":" + CLIENT_PORT, TIMEOUT, watcher);
