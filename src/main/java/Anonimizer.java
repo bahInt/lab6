@@ -13,10 +13,12 @@ import akka.http.javadsl.server.Route;
 import akka.stream.ActorMaterializer;
 import akka.stream.javadsl.Flow;
 import org.apache.zookeeper.KeeperException;
+import org.apache.zookeeper.WatchedEvent;
 import org.apache.zookeeper.Watcher;
 import org.apache.zookeeper.ZooKeeper;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.concurrent.CompletionStage;
 
@@ -52,8 +54,9 @@ public class Anonimizer {
 
     public static void initZooKeeper() throws IOException {
         keeper = new ZooKeeper(HOST + ":" + CLIENT_PORT, TIMEOUT, watcher);
-        l.info("Creating servers on port {}", PORT)
-        keeper.create();
+        l.info("Creating servers on port {}", PORT);
+        keeper.create("/servers/" + PORT, (PORT + "").getBytes());
+        WatchedEvent event = new WatchedEvent(Watcher.Event.EventType.NodeCreated, Watcher.Event.KeeperState.SyncConnected);
     }
 
     public static Watcher watcher = watchedEvent -> {
