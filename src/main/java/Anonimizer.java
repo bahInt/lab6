@@ -27,11 +27,13 @@ public class Anonimizer {
     private static final int TIMEOUT = 3000;
     private static final Object LOG_SOURCE = System.out;
     private static ZooKeeper keeper;
+    private static ActorRef configStorageActor;
+    private static LoggingAdapter l;
 
     public static void main(String[] args) throws IOException {
         ActorSystem system = ActorSystem.create("routes");
-        LoggingAdapter l = Logging.getLogger(system, LOG_SOURCE);
-        ActorRef cachingActor = system.actorOf(Props.create(ConfigStorageActor.class));
+        l = Logging.getLogger(system, LOG_SOURCE);
+        configStorageActor = system.actorOf(Props.create(ConfigStorageActor.class));
         initZooKeeper();
         Http http = Http.get(system);
         final ActorMaterializer materializer = ActorMaterializer.create(system);
@@ -50,6 +52,8 @@ public class Anonimizer {
 
     public static void initZooKeeper() throws IOException {
         keeper = new ZooKeeper(HOST + ":" + CLIENT_PORT, TIMEOUT, watcher);
+        l.info("Creating servers on port {}", PORT)
+        keeper.create();
     }
 
     public static Watcher watcher = watchedEvent -> {
@@ -60,11 +64,9 @@ public class Anonimizer {
                 byte[] port = keeper.getData("servers/" + s, false, null);
                 newServers.add(new String(port));
             }
-            
-        } catch (KeeperException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
+            configStorageActor.tell(new RefreshServerMessage(newServers), ActorRef.noSender());
+        } catch (KeeperException | InterruptedException e) {
             e.printStackTrace();
         }
-    }
+    };
 }
