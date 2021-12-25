@@ -13,7 +13,7 @@ public class ConfigStorageActor extends AbstractActor {
                     servers = msg.getServers();
                 })
                 .match(GetNextServer.class, msg -> {
-                    
+                    getSender().tell();
                 })
                 .build();
     }
