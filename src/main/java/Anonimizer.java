@@ -58,7 +58,8 @@ public class Anonimizer {
                     parameter("count", count -> {
                         if(Integer.parseInt(count) <= 0) return completeWithFuture(fetch(url));
                     return completeWithFuture(Patterns.ask(configStorageActor, new GetNextServer(), timeout))
-                            .thenApply;
+                            .thenApply()
+                            .thenCompose();
                     }))
         ));
     }
