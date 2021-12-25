@@ -12,6 +12,7 @@ import akka.http.javadsl.model.HttpResponse;
 import akka.http.javadsl.server.Route;
 import akka.stream.ActorMaterializer;
 import akka.stream.javadsl.Flow;
+import org.apache.zookeeper.Watcher;
 import org.apache.zookeeper.ZooKeeper;
 
 import java.io.IOException;
@@ -46,6 +47,8 @@ public class Anonimizer {
     public static Route createRoute(){}
 
     public static void initZooKeeper() {
-        keeper = new ZooKeeper(HOST + "", TIMEOUT)
+        keeper = new ZooKeeper(HOST + ":" + CLIENT_PORT, TIMEOUT, watcher)
     }
+
+    public static Watcher watcher
 }
