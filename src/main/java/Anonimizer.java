@@ -54,5 +54,6 @@ public class Anonimizer {
     public static Watcher watcher = watchedEvent -> {
         ArrayList<String> newServers = new ArrayList<>();
 
+        for(String s: keeper.getChildren()){}
     }
 }
