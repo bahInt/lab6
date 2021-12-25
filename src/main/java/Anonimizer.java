@@ -16,6 +16,7 @@ import akka.stream.javadsl.Flow;
 import org.apache.zookeeper.*;
 
 import java.io.IOException;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.concurrent.CompletionStage;
 
@@ -27,6 +28,7 @@ public class Anonimizer {
     private static final int CLIENT_PORT = 8080;
     private static final int TIMEOUT = 3000;
     private static final Object LOG_SOURCE = System.out;
+    private static final Duration timeout = Duration.ofSeconds(5);
     private static ZooKeeper keeper;
     private static ActorRef configStorageActor;
     private static Http http;
@@ -55,7 +57,7 @@ public class Anonimizer {
             parameter("url", url ->
                     parameter("count", count -> {
                         if(Integer.parseInt(count) <= 0) return completeWithFuture(fetch(url));
-                    return completeWithFuture(Patterns.ask(configStorageActor, new GetNextServer(), t));
+                    return completeWithFuture(Patterns.ask(configStorageActor, new GetNextServer(), timeout));
                     }))
         ));
     }
