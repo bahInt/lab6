@@ -67,7 +67,7 @@ public class Anonimizer {
     private static CompletionStage<HttpResponse> fetch(String url) {
         return http.singleRequest(HttpRequest.create(url));
     }
-    
+
     public static void initZooKeeper() throws IOException, InterruptedException, KeeperException {
         keeper = new ZooKeeper(HOST + ":" + CLIENT_PORT, TIMEOUT, watcher);
         l.info("Creating servers on port {}", PORT);
